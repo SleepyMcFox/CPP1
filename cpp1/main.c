@@ -25,12 +25,48 @@ NodeT *init(const int n){
 }
 
 NodeT *destroy(NodeT * node){
-    
+    NodeT *next = node->next;
+    free(node);
+    return next;
+}
+
+void append(NodeT **head, int new_data){
+    NodeT *node = init(new_data);
+    NodeT *last = *head;
+    if(*head == NULL)
+    {
+        *head = node;
+        return;
+    }
+
+    while(last->next != NULL)
+    {
+        last = last->next;
+    }
+    last->next = node;
+}
+
+void print(NodeT *head)
+{
+    NodeT *tmp = head;
+
+    while(tmp->next != NULL)
+    {
+        printf("%d", tmp->data);
+        tmp = tmp->next;
+    }
+    printf("%d",tmp->data);
 }
 
 int main(void)
 {
-    NodeT node = {.data = 10};
+    NodeT *head = init(1);
+    append(&head, 2);
+    append(&head, 3);
+    append(&head, 4);
+
+    print(head);
+
     // printf("My name is: %s\n", p.name);
     // printf("Age: %d\n", p.age);
     // printf("Weight: %d\n", p.weight);
